@@ -1,0 +1,312 @@
+## 0. عقد التنفيذ (إلزامي)
+
+> **EXECUTION CONTRACT — READ FIRST, OBEY LITERALLY**
+>
+> 1. You are an executor, not a planner. This file is the complete, final specification. Every sentence, table row, bullet, and code sample in it is a requirement.
+> 2. **Do NOT produce an implementation plan**, outline, roadmap, summary of intent, or restatement of this file. Do NOT list "steps I will take". Your first output must be a tool call that creates or edits a file, never prose.
+> 3. **Do NOT ask for confirmation** ("should I proceed?", "shall I execute?", "do you approve?"). The answer is always YES, already given. Do NOT stop for review at any point.
+> 4. **If you think you found a mistake, contradiction, or ambiguity in this file: do NOT stop and do NOT ask.** Follow the file literally, apply the most reasonable reading, record the issue in `PROJECT_NOTES.md`, and keep going.
+> 5. Do NOT skip, merge, shorten, simplify, or defer any requirement. No `TODO`, no placeholders, no "similar to above", no "left as an exercise".
+> 6. Before you finish, go through this file section by section (0 to 15). For each requirement, open the real file that satisfies it and confirm it. Write `COMPLIANCE_CHECKLIST.md` listing every section and requirement with its status (`DONE`) and the file path that proves it. Any item not `DONE`: do it now. You may not end your turn while any item is not `DONE`.
+> 7. Your final message is only the contents of `COMPLIANCE_CHECKLIST.md`. No questions, no offers, no "next steps" suggestions.
+
+- نفّذ المشروع كاملًا الآن. **Do NOT produce an implementation plan** ولا ملخص نوايا ولا أسئلة استيضاحية.
+- اكتب كل سطر من كل ملف بشكل كامل وقابل للتشغيل. ممنوع `TODO` وممنوع placeholders وممنوع عبارات مثل "باقي الملفات مشابهة".
+- لو فيه غموض: اتخذ أفضل افتراض معقول، دوّنه في `PROJECT_NOTES.md`، وكمّل.
+- الاستثناء الوحيد: `DESIGN_DECISIONS.md` (القسم 5) ملف قصير يُكتب أولًا، ثم تكمل التنفيذ مباشرة بدون توقف.
+- **القالب ثابت:** لا تحذف ولا تخفف ولا تعدّل أي قاعدة في هذا الملف لتناسب الفكرة. الفكرة تحدد فقط: نمط الواجهة (قسم 5)، الـ features الإضافية (قسم 6)، الأيقونة واللون المميز (قسمان 4 و9)، الميزات المتاحة لكل منصة (قسم 10)، والمهارات الخاصة (قسم 14). أي تعارض ظاهري بين قاعدة والفكرة: التزم بالقاعدة ودوّن التعارض في `PROJECT_NOTES.md` (باستثناء ما ينص عليه قسم 10 عن الميزات غير الممكنة).
+
+---
+
+## فكرة المشروع
+
+**بدّل (Baddil)** — تطبيق لتغيير «بصمة» الملفات (صور، فيديوهات، وأي ملف عادي) دون أي تغيير مرئي في المحتوى، لاستخدام منتجات مولّدة بالذكاء الاصطناعي داخل الشركة. المعالجة محلية 100%: بدون إنترنت، بدون رفع، بدون analytics أو إعلانات.
+
+**معنى «البصمة»: ثلاث طبقات، كلها يجب أن تعمل فعليًا:**
+
+1. **الـ metadata:** حذف أو إعادة كتابة EXIF وXMP وIPTC، وحقول النصوص في PNG (`tEXt` و`iTXt` و`zTXt` و`eXIf`)، وكتل C2PA/Content Credentials (JPEG: APP11، PNG: `caBX`)، ووسوم حاوية الفيديو (`udta` و`meta`).
+2. **الهاش (SHA-256 وMD5):** تغييره فعليًا بإضافة بيانات عشوائية خاصة لا تؤثر على العرض، **بدون إعادة ضغط ولا فقد جودة** كوضع افتراضي: JPEG (قطعة `COM`)، PNG (chunk خاص ancillary مع CRC صحيح)، WebP (RIFF chunk)، MP4/MOV (صندوق `free` + تعديل timestamps في `mvhd`/`tkhd`).
+3. **إعادة ترميز اختيارية للصور:** JPEG/PNG بجودة يحددها المستخدم.
+
+**الملفات العادية** (PDF، ZIP، مستندات...): إلحاق trailer عشوائي (للـ PDF بعد `%%EOF`)، مع تنبيه أن العملية best-effort ويُنصح بفتح الملف للتأكد، وخيار «حساب الهاش فقط».
+
+**الحدود (اكتبها في شاشة التعريف وفي `PROJECT_NOTES.md`):** التطبيق يغيّر بصمة الملف (الهاش + الـ metadata) فقط. لا يزيل العلامات المائية غير المرئية داخل البكسلات (مثل SynthID) ولا يعدّل البكسلات خفيةً. تظهر في «حول» ملاحظة قصيرة مترجمة: الإفصاح عن المحتوى المولّد بالذكاء الاصطناعي مسؤولية المستخدم حسب سياسات المنصات التي ينشر عليها.
+
+**الميزات الأساسية:**
+
+- منطقة إفلات (drag & drop على desktop/web) + اختيار ملفات أو مجلد كامل (batch)، وقائمة انتظار بتقدم لكل ملف وزر إلغاء.
+- خيارات: حذف metadata، تغيير الهاش، إعادة ترميز الصور، كتابة metadata مخصصة (اسم الشركة، المؤلف، حقوق النشر)، قالب اسم الملف الناتج، مجلد الإخراج.
+- تقرير لكل ملف: SHA-256 قبل/بعد، الحجم، ما الذي تغيّر، زر نسخ الهاش، وتصدير التقرير CSV.
+- لا يُستبدل الملف الأصلي أبدًا؛ الناتج ملف جديد. المعالجة داخل Isolate حتى لا تتجمد الواجهة.
+- الفيديو: MP4/MOV بـ Dart صرف على **كل** المنصات (بما فيها iOS والويب). MKV/WebM/AVI وغيرها عبر FFmpeg على desktop وAndroid فقط (اختر الحزمة/الباينري المصانة حاليًا من pub.dev بعد التحقق)، وعطّلها برسالة مترجمة على iOS والويب.
+
+**مرجع التصميم:** مجلد `design/` في جذر المشروع فيه صورتا التصميم (`design/desktop.png` و`design/mobile.png`). افتحهما أولًا واتبع تخطيطهما وترتيب عناصرهما (منطقة إفلات مركزية، قائمة معالجة، لوحة خيارات)، ولون الـ accent التيل `#3FC8B0`. لا توجد أي حواف أو أشرطة بيضاء في التصميم: الخلفية تملأ الشاشة كاملة بألوان القسم 4 (داكن `#212327`، نهاري `#efeef1`). هما مرجع بصري وليسا مواصفات بكسلية: ألوان القسم 4 وقواعد التجاوب تبقى ملزمة. إن لم تستطع قراءة الصور فاتبع القسم 5 ودوّن ذلك في `PROJECT_NOTES.md`.
+
+**اختبار الصحة (إلزامي):** اكتب unit tests تولّد ملفات عيّنة صغيرة وصحيحة (JPEG وPNG وWebP وMP4) وتتحقق أن: الهاش تغيّر، والملف ما زال يُفتح ويُفك ترميزه بنفس المحتوى المرئي، والـ metadata المستهدفة اختفت.
+
+**قبول Google Play من أول مراجعة:** اختر الأدوات والحزم الصحيحة لهذه الفكرة، وتأكد أن الميزة الأساسية تعمل فعليًا على ملفات حقيقية (لا واجهة جميلة بلا وظيفة). على Android: system file picker فقط، ممنوع `MANAGE_EXTERNAL_STORAGE` وأذونات `READ_MEDIA_*` الواسعة، بدون إذن إنترنت، ونص Data safety = لا يجمع ولا يشارك بيانات.
+
+## 1. المشروع
+
+| المتغير | القيمة |
+|---|---|
+| APP_NAME | `Baddil` (الاسم العربي المعروض: `بدّل`) |
+| APP_ID (reverse-DNS) | `com.h.baddil` |
+| LANGUAGES | `ar`, `en` |
+| TARGETS | `all` |
+| UI_PATTERN | `Canvas/Workspace`: منطقة إفلات مركزية + قائمة انتظار + لوحة خيارات جانبية (bottom sheet على mobile) |
+
+- فكرة التطبيق هي نص قسم «فكرة المشروع» أعلاه، وهي المرجع الوحيد للفكرة.
+- أي قيمة بقيت `{{...}}` بدون تعبئة = استخدم الافتراضي المكتوب أمامها. وإذا بقي `APP_NAME` أو `APP_ID` فارغًا، اختر اسمًا قصيرًا يناسب الفكرة، و`APP_ID` بصيغة `com.h.<الاسم_المختصر_بحروف_صغيرة>`، ودوّنهما في `PROJECT_NOTES.md`. نفس الـ `APP_ID` يُستخدم في كل مكان (Flatpak، bundle id، الحزم).
+
+**TARGETS** (الافتراضي `all`): القيمة `all`، أو واحدة أو أكثر من `desktop` و`mobile` و`web` (عند الجمع تُدمج الصفوف):
+
+| القيمة | مجلدات `screens/` | المنصات المطلوبة |
+|---|---|---|
+| desktop | desktop | Windows، Linux، macOS، Flatpak |
+| mobile | mobile | Android، iOS |
+| web | web | Web |
+
+عند اختيار أقل من `all`: لا تُنشئ المجلدات والمنصات غير المطلوبة (ولا مجلدات `platform/` الخاصة بها)، ولا تحاول بناءها، وتُطبَّق باقي القواعد كما هي على ما بقي.
+
+---
+
+## 2. تعدد اللغات
+
+- استخدم `flutter gen-l10n` مع ملفات ARB لكل لغة في `LANGUAGES`.
+- الاتجاه (RTL/LTR) يتبدل تلقائيًا حسب اللغة المختارة.
+- **كل** نص ظاهر للمستخدم يجي من ARB، بما فيه الإعدادات وعناوين قسم المطور. ممنوع أي نص ثابت داخل الـ widgets.
+- لغة البداية = لغة النظام إن كانت مدعومة، وإلا `en`. اختيار المستخدم يُحفظ ويُطبّق فورًا.
+
+---
+
+## 3. تسلسل الصفحات
+
+1. **شاشة البداية/التعريف:** أيقونة التطبيق + تعريف قصير بالتطبيق.
+2. **اختيار اللغة.**
+3. **اختيار الثيم:** داكن / نهاري / تلقائي (حسب النظام).
+4. **الواجهة الرئيسية:** بسيطة ومرتبة، كل خيار يُعرف مكانه بدون زحام، والإعدادات واصلة منها.
+
+الحفظ بـ `shared_preferences`: اللغة، الثيم، وعلم `onboarding_done`. إذا كان العلم true يُتخطى التسلسل (1–3) في التشغيلات التالية. يظهر خيار تغيير اللغة والثيم لاحقًا من الإعدادات.
+
+---
+
+## 4. الثيم والألوان
+
+| | الخلفية | الأيقونات والأزرار |
+|---|---|---|
+| داكن | `#212327` | `#232627` |
+| نهاري | `#efeef1` | `#fefefe` |
+
+- لون الأزرار في الداكن قريب جدًا من الخلفية، فميّزه بحد 1px بشفافية خفيفة (أبيض 8%) أو ظل ناعم. في النهاري استخدم حدًا/ظلًا أسود خفيفًا (6%).
+- لون النص الأساسي: داكن `#CDCCCA`، نهاري `#212327`.
+- لون مميز واحد (accent) مشتق من أيقونة التطبيق، يُستخدم باعتدال.
+- كل الألوان تُعرَّف في `core/theme` فقط عبر `ThemeData`/`ColorScheme`. ممنوع `Color(0x...)` داخل الـ widgets.
+
+---
+
+## 5. نمط الواجهة (UI/UX)
+
+قبل كتابة أي واجهة، حلّل فكرة التطبيق وطريقة استخدامه، ثم اختر **أنسب نمط UI/UX لفكرة المشروع نفسها**، ولا تستخدم قالبًا جاهزًا.
+
+- **إذا كانت `UI_PATTERN` غير `auto`:** استخدم النمط المحدد كما هو، واكتب في `DESIGN_DECISIONS.md` كيف يُكيَّف لكل منصة.
+- **إذا كانت `auto`:** لا يوجد نمط افتراضي ولا نمط ممنوع. كل نمط مقبول **فقط** إذا طابق فكرة التطبيق وطريقة استخدامه، ولا يُختار لمجرد أنه الأكثر شيوعًا.
+- أنماط ممكنة (أمثلة وليست حصرًا): Sidebar، Centered Launcher / Task Hub (بطاقات مهام في منتصف الشاشة)، Canvas/Workspace، Split View، Command/Prompt، Conversational، AI-First، Copilot، Floating AI، Contextual/Adaptive، Spatial/Radial، أو أي نمط حديث أنسب.
+- **إذا كان الذكاء الاصطناعي جزءًا من التطبيق:** اجعله أساسيًا في التجربة وليس نافذة محادثة مضافة لواجهة تقليدية.
+
+اكتب إجابات الأسئلة التالية في `DESIGN_DECISIONS.md` (سطر أو سطرين لكل سؤال) **قبل** أي كود واجهة:
+
+1. ما أهم إجراء يريد المستخدم القيام به؟
+2. ما دور الذكاء الاصطناعي في التطبيق (أو لا دور له)؟
+3. ما المعلومات التي تظهر دائمًا؟
+4. ما العناصر التي تظهر عند الحاجة فقط؟
+5. ما النمط المختار ولماذا؟ (إذا `auto`: اذكر نمطين رفضتهما وسبب رفض كل منهما)
+6. كيف يُكيَّف النمط لكل من mobile وdesktop وweb؟
+
+المتطلبات (تنطبق على أي نمط):
+
+- بسيطة ومرتبة، حديثة واحترافية، تسلسل بصري واضح، الوظيفة الأساسية واضحة مباشرة، بلا عناصر لمجرد أنها شائعة.
+- الهوية البصرية موحدة بين المنصات، لكن لكل منصة تخطيط وتفاعل يناسبها (ليست نسخًا متطابقة).
+- المحتوى المركزي على سطح المكتب والويب له حد أقصى للعرض.
+- شبكات البطاقات تتوزع بالتساوي بـ `Wrap`/Grid، بدون بطاقة يتيمة في صف لوحدها وفراغ بجانبها.
+- لا يتكرر نفس الإجراء في أكثر من مكان على الشاشة (مثل الإعدادات في الهيدر وفي بطاقة).
+
+---
+
+## 6. هيكل المجلدات
+
+```
+lib/
+├── core/                  # ثوابت وأساسيات مشتركة
+│   ├── theme/             # كل الألوان و ThemeData
+│   ├── l10n/              # إعدادات الترجمة (ARB في l10n/ بجذر المشروع حسب gen-l10n)
+│   └── constants/         # بينها developer_info.dart
+├── shared/                # يُستخدم فعليًا من أكثر من feature
+│   ├── models/
+│   ├── services/          # contracts مشتركة فعلًا
+│   └── widgets/
+├── features/
+│   ├── onboarding/        # models / services / widgets
+│   ├── home/              # models / services / widgets
+│   └── settings/          # models / services / widgets
+├── platform/              # implementations فقط، ممنوع أي abstract class
+│   ├── android/  ├── ios/  ├── linux/  ├── macos/  ├── windows/  └── web/
+├── screens/
+│   ├── mobile/
+│   ├── desktop/
+│   └── web/
+└── main.dart
+```
+
+- أي interface يستخدمه feature واحد فقط → `features/<feature>/services/`. إذا صار يستخدمه أكثر من feature → انقله إلى `shared/services/`.
+- أضف features جديدة حسب فكرة التطبيق بنفس البنية.
+- **اختيار الشاشات:** المنصة تحدد المجلد (`kIsWeb` → web، Windows/Linux/macOS → desktop، Android/iOS → mobile)، و`LayoutBuilder` يتكيف داخل المجلد مع العرض (مثل متصفح الجوال أو نافذة ضيقة).
+
+---
+
+## 7. قواعد التجاوب (كل الشاشات، كل المنصات)
+
+- `LayoutBuilder` لأي قياس/تخطيط محلي داخل widget (يمنع overflow)، مع `Flexible` و`Expanded` و`Wrap`.
+- ممنوع `MediaQuery.of(context).size` إطلاقًا. استخدم `MediaQuery.sizeOf(context)` فقط عند قرار يحتاج حجم نافذة التطبيق كاملة (مثل تبديل نمط تنقل عام).
+- **سطح المكتب فقط (Windows/Linux/macOS):** `window_manager` + `setMinimumSize` (الافتراضي 800×600 ما لم تحتج الواجهة أكثر).
+
+---
+
+## 8. الإعدادات وقسم المطور
+
+- الإعدادات تحتوي اللغة والثيم وغيرها حسب التطبيق.
+- **قسم المطور يكون آخر شيء في شاشة الإعدادات على جميع المنصات.**
+- العنوان والتسميات من ARB. الاسم والبريد والرابط ثوابت في `core/constants/developer_info.dart`:
+  - الاسم: `حسام حسن مجرشي` (نفسه في كل اللغات)
+  - البريد: `Hossam.Majrashi@gmail.com`
+  - الموقع: `https://hossam-majrashi.github.io/Works/`
+- المطلوب تنفيذ `_buildContactItem` و`_launchUrl` كاملتين (باستخدام `url_launcher`، وSnackBar عند فشل الفتح). المرجع:
+
+```dart
+Text(
+  DeveloperInfo.name,
+  style: TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w900,
+    color: Theme.of(context).colorScheme.onSurface,
+  ),
+),
+const SizedBox(height: 16),
+_buildContactItem(
+  context,
+  icon: Icons.alternate_email_rounded,
+  label: l10n.email,
+  value: DeveloperInfo.email,
+  onTap: () => _launchUrl('mailto:${DeveloperInfo.email}'),
+),
+const SizedBox(height: 16),
+_buildContactItem(
+  context,
+  icon: Icons.public_rounded,
+  label: l10n.website,
+  value: 'hossam-majrashi.github.io/Works/',
+  onTap: () => _launchUrl(DeveloperInfo.websiteUrl),
+),
+```
+
+---
+
+## 9. أيقونة التطبيق
+
+- صمّم أيقونة تعبّر عن فكرة المشروع: مصدر SVG ثم PNG بحجم 1024×1024 في `assets/icon/`، مع نسخة foreground للـ adaptive icon (المحتوى داخل المنطقة الآمنة ~66%) ولون خلفية.
+- اربطها بالمشروع عبر **`icons_launcher` بالإصدار 3.1.0 بالضبط** (dev_dependency + إعداده في `pubspec.yaml` حسب توثيق الحزمة) لكل المنصات المستهدفة، ثم شغّل أمر التوليد.
+- لا تستخدم `flutter_launcher_icons`.
+
+---
+
+## 10. المنصات والمعماريات (إلزامي)
+
+الأهداف: كل المنصات المطابقة لـ `TARGETS` (الافتراضي كلها): Windows، Linux، macOS، Android، Flatpak (منفصل عن حزم Linux الأصلية)، iOS، Web. لا تتخطَّ أيًّا من المنصات المطلوبة.
+
+المعماريات المطلوبة: x86-64، AArch64 (ARM64)، ARMv7 (32-bit)، x86-32 (32-bit)، **حيثما تدعمها المنصة فعليًا**. Flutter الرسمي يدعم:
+
+| المنصة | المعماريات المدعومة |
+|---|---|
+| Android | x64، Arm64، Arm32 (ARMv7) |
+| iOS | Arm64 |
+| macOS | x64، Arm64 (يفضَّل universal) |
+| Windows | x64، Arm64 |
+| Linux | x64، Arm64 |
+| Web | JavaScript / WebAssembly |
+
+- ARMv7 على غير أندرويد، وx86-32 في أي منصة، **غير مدعومة من Flutter**: لا تحاول بناءها ولا تلفّق لها مخرجات. سجّلها في `BUILD_NOTES.md` كغير مدعومة.
+- لو معمارية مدعومة لكن لا يمكن بناؤها من جهاز البناء الحالي (مثل iOS/macOS خارج macOS، أو Arm64 بدون cross-build): السكربت يطبع رسالة واضحة ويبني ما يمكن، والأمر الكامل يُدوَّن في `BUILD_NOTES.md`.
+- `BUILD_NOTES.md` يحتوي أمر بناء كل منصة ومتطلبات جهاز البناء.
+- **الميزات غير الممكنة على منصة** (مثل FFmpeg على الويب وiOS، أو الوصول للملفات، أو ميزة خاصة بنظام): لا تلفّقها ولا تنفّذ نسخة مزيفة. عطّلها بوضوح في واجهة تلك المنصة برسالة مترجمة، واستخدم بديلًا حقيقيًا إن وُجد، ووثّق ذلك في `PROJECT_NOTES.md`.
+
+---
+
+## 11. `build_linux.sh`
+
+(فقط إذا كان Linux ضمن المنصات المطلوبة.)
+
+ينتج **كل** التالي داخل مجلد `/dist`:
+
+- `.rpm` (متوافق مع dnf/yum/zypper، مع dependencies صحيحة)
+- `.deb`
+- `.pkg.tar.zst` (Arch/pacman)
+- `.tar.gz` (أرشيف عام)
+- `AppImage`
+
+المتطلبات: الإصدار يؤخذ من `pubspec.yaml`، ملف `.desktop` والأيقونة داخل كل حزمة، والسكربت يتحقق من وجود الأدوات المطلوبة ويفشل برسالة واضحة إن غابت (`fpm` مقبول). كل معمارية Linux مدعومة (x64، Arm64) لها مخرجاتها.
+
+---
+
+## 12. `flatpak_linux.sh`
+
+(فقط إذا كان Flatpak ضمن المنصات المطلوبة.)
+
+يقرأ من مجلد `flatpak/` الذي يحتوي:
+
+- `com.h.baddil.json` (manifest)
+- `com.h.baddil.metainfo.xml`
+- `com.h.baddil.desktop`
+
+`com.h.baddil` هو الـ reverse-DNS الخاص بالمشروع، وليس بادئة ثابتة. المخرجات أيضًا في `/dist`. اختر runtime يناسب bundle الخاص بـ Flutter على Linux.
+
+---
+
+## 13. ملفات التوثيق للـ agent
+
+أنشئ `PROJECT_NOTES.md` (وملف `AGENTS.md` من سطر واحد يشير إليه) ويحتويان:
+
+- وصف التطبيق، والهيكل، والقرارات والافتراضات التي اتخذتها، وجدول «ميزة × منصة» يوضح ما يعمل وما يُعطَّل على كل منصة ولماذا.
+- **قاعدة إلزامية:** أي تعديل أو ميزة جديدة يجب أن تُطبَّق على المجلدات الثلاثة `screens/mobile` و`screens/desktop` و`screens/web` (أو على المجلدات الموجودة فقط حسب `TARGETS`). لا تنهِ أي جلسة قبل التأكد من ذلك.
+- لا ألوان ثابتة ولا نصوص ثابتة داخل الـ widgets.
+
+---
+
+## 14. المهارات التي يجب أن يتعلمها الـ agent قبل البدء
+
+- Flutter gen-l10n وملفات ARB ودعم RTL
+- تخطيطات متجاوبة بـ `LayoutBuilder` وتخصيص التصميم لكل منصة
+- `window_manager` وإدارة نافذة سطح المكتب
+- `shared_preferences` و`url_launcher`
+- `flutter_localizations` و`intl`
+- `path_provider` والتعامل مع الملفات والمجلدات على كل منصة (sandbox على macOS/iOS، scoped storage على Android)
+- أدوات التغليف: `fpm` و`appimagetool` و`flatpak-builder` و`makepkg`/`zstd`
+- Android: `abiFilters` وsplit-per-abi لإنتاج x64 وArm64 وArm32
+- `flutter test` و`flutter analyze` وإصلاح كل ما يظهر
+- قراءة هذا الملف كاملًا وتنفيذه بالترتيب والتحقق من كل بند (القسم 0)
+- `icons_launcher` 3.1.0
+- تغليف Linux: rpm، deb، pkg.tar.zst، tar.gz، AppImage، Flatpak
+- بنية JPEG (markers: APP1/APP11/APP13/COM) وPNG (chunks وCRC32) وWebP (RIFF) وMP4/MOV (atoms: ftyp/moov/mvhd/tkhd/udta/meta/free) وحاويات C2PA/JUMBF
+- `crypto` (SHA-256/MD5) وIsolates (`Isolate.run`/`compute`) ومعالجة الملفات الكبيرة بالتدفق
+- اختيار ملفات/مجلدات (`file_picker`) وdrag & drop على desktop/web، وSAF/scoped storage على Android، والتنزيل على الويب
+- دمج FFmpeg على desktop وAndroid والتحقق من صيانة الحزمة
+- سياسات Google Play: Data safety وأذونات التخزين
+
+---
+
+## 15. معيار الإنجاز
+
+- `flutter analyze` بدون أخطاء، والتطبيق يعمل بدون overflow على الأحجام المختلفة.
+- لا نصوص ولا ألوان ثابتة داخل الـ widgets.
+- كل المنصات المطلوبة مغطاة (وغير المدعومة موثقة في `BUILD_NOTES.md`).
+- كل الملفات مكتوبة بالكامل بدون `TODO` أو اختصارات.
+- `COMPLIANCE_CHECKLIST.md` موجود وكل بنوده `DONE`، ومع كل بند مسار الملف الذي يثبته.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.h.baddil</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Proprietary</project_license>
+  <name>Baddil</name>
+  <summary>Local file fingerprint modifier with zero quality loss</summary>
+  <description>
+    <p>
+      Baddil modifies file fingerprints (hash and metadata) 100% locally with zero cloud upload and complete privacy.
+    </p>
+  </description>
+  <launchable type="desktop-id">com.h.baddil.desktop</launchable>
+  <provides>
+    <binary>baddil</binary>
+  </provides>
+</component>

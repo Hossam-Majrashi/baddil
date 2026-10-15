@@ -1,0 +1,41 @@
+{
+  "app-id": "com.h.baddil",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "23.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "baddil",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--filesystem=host"
+  ],
+  "modules": [
+    {
+      "name": "baddil",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -D baddil /app/bin/baddil",
+        "install -D -m 644 data/flutter_assets/assets/icon/icon.png /app/share/icons/hicolor/512x512/apps/com.h.baddil.png",
+        "install -D -m 644 data/flutter_assets/assets/icon/icon.svg /app/share/icons/hicolor/scalable/apps/com.h.baddil.svg",
+        "install -D -m 644 data/flutter_assets/assets/icon/icon.png /app/share/pixmaps/com.h.baddil.png",
+        "install -D -m 644 com.h.baddil.desktop /app/share/applications/com.h.baddil.desktop",
+        "install -D -m 644 com.h.baddil.metainfo.xml /app/share/metainfo/com.h.baddil.metainfo.xml"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "../build/linux/x64/release/bundle"
+        },
+        {
+          "type": "file",
+          "path": "com.h.baddil.desktop"
+        },
+        {
+          "type": "file",
+          "path": "com.h.baddil.metainfo.xml"
+        }
+      ]
+    }
+  ]
+}

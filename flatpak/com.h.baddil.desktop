@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=بدّل
+Name[en]=Baddil
+Comment=Local file fingerprint modifier with zero quality loss
+Comment[ar]=تطبيق لتغيير بصمة الملفات محلياً بدون فقد الجودة
+Exec=baddil
+Icon=com.h.baddil
+Terminal=false
+StartupWMClass=com.h.baddil
+Keywords=fingerprint;hash;metadata;exif;privacy;cleaner;media;video;image;بدل;بصمة;
+Categories=Utility;Graphics;AudioVideo;

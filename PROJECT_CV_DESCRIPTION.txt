@@ -1,0 +1,264 @@
+================================================================================
+                    مشروع: بدّل — Baddil
+   تطبيق متعدد المنصات لتعديل بصمة الملفات الرقمية محلياً وحفظ الخصوصية
+   Multi-Platform Zero-Loss File Fingerprint & Metadata Perturbation Engine
+================================================================================
+المطور: حسام حسن مجرشي (Hossam Hassan Majrashi)
+الموقع الشخصي / معرض الأعمال: https://hossam-majrashi.github.io/Works/
+البريد الإلكتروني: Hossam.Majrashi@gmail.com
+معرّف التطبيق: com.h.baddil
+إصدار التطبيق: 1.0.0+1
+التقنيات: Flutter | Dart 3 | Binary Parsing | Cryptography | Multi-Platform (6 OS)
+الترخيص وحفظ الحقوق: متاح كعمل احترافي ضمن معرض أعمال المطور
+================================================================================
+
+[جدول المحتويات / Table of Contents]:
+--------------------------------------------------------------------------------
+1. نبذة سريعة وموجزة لبطاقات الموقع (Short Bio / Portfolio Cards)
+2. نقاط جاهزة للسيرة الذاتية (CV / Resume Bullet Points - AR)
+3. الوصف التفصيلي الشامل لمعرض الأعمال (Full Portfolio Showcase - AR)
+4. الإنجازات الهندسية والتحديات التقنية العميقة (Deep Technical Highlights - AR)
+5. مصفوفة التقنيات والمهارات البرمجية (Tech Stack & Core Competencies)
+6. النسخة الإنجليزية الكاملة (Complete English Section for CV & Portfolio)
+   - 6.1 Quick Bio / Portfolio Cards (EN)
+   - 6.2 Professional Resume Bullet Points (EN)
+   - 6.3 Comprehensive Project Showcase (EN)
+   - 6.4 Core Architecture & Deep Technical Breakdown (EN)
+   - 6.5 Full Tech Stack Matrix (EN)
+
+
+================================================================================
+1. نبذة سريعة وموجزة لبطاقات الموقع (Short Bio / Portfolio Cards)
+================================================================================
+
+[الخيار الأول - موجز ومباشر (سطران)]:
+تطبيق Flutter احترافي متعدد المنصات (موبايل، ديسكتوب، ويب) يتيح تعديل «بصمة» الملفات الرقمية 
+(الهاش SHA-256/MD5 والـ Metadata) محلياً بنسبة 100% دون خوادم ودون أي فقدان لجودة المحتوى الأصلي.
+
+[الخيار الثاني - يركز على القيمة والخصوصية (3 أسطر)]:
+«بدّل» أداة خصوصية وأمان متقدمة لمعالجة الصور والفيديوهات محلياً داخل جهاز المستخدم. 
+يقوم بتطهير بيانات EXIF وXMP وبيانات C2PA، وتوليد بصمات هاش جديدة فريدة عبر خوارزميات Dart صرفة، 
+مع الحفاظ الكامل على دقة وبكسلات الملفات الأصلية دون إعادة ضغط.
+
+[الخيار الثالث - للملفات والمشاريع ذات الطابع الهندسي المتقدم]:
+محرك معالجة ثنائية للملفات (Binary File Perturbation) مطوّر باستخدام Flutter/Dart، يستهدف 6 منصات رئيسية.
+يقدم معالجة موازية عبر Isolates لتعديل قطاعات JPEG وPNG Chunks وحاويات MP4/MOV مع حساب فوري لهاشات 
+SHA-256 وMD5 وتصدير تقارير تدقيق CSV.
+
+
+================================================================================
+2. نقاط جاهزة للسيرة الذاتية (CV / Resume Bullet Points - AR)
+================================================================================
+
+• هندسة وتطوير تطبيق «بدّل» بنظام Flutter/Dart لمعالجة وتعديل بصمات الملفات الرقمية (Hashes & Metadata) على 6 أنظمة تشغيل (Android, iOS, Linux, Windows, macOS, Web) بمعمارية نظيفة 100% Offline.
+• ابتكار وتنفيذ خوارزميات تحليل ثنائي صرفة (Pure Dart Binary Parsers) لتعديل هاش الملفات (SHA-256/MD5) بدون إعادة ضغط (Zero-Loss Hash Perturbation) لصيغ JPEG وPNG وWebP وMP4/MOV.
+• بناء معالج مخصص لحاويات PNG يعيد حساب قيم CRC-32 رياضياً بعد حقن Ancillary Chunks، ومعالج لحاويات MP4/MOV لتحديث قطاعات `free` وصناديق التوقيت الزمني `mvhd`/`tkhd` دون الحاجة لـ FFmpeg.
+• تطهير بيانات التعريف الحساسة (Metadata Sanitation) بما يشمل وسوم EXIF، XMP، IPTC، وكتل اعتمادات المحتوى C2PA (APP11 في JPEG وcaBX في PNG) لحماية خصوصية الشركات وصنّاع المحتوى.
+• تحسين الأداء وتجربة المستخدم بتطبيق الحوسبة المتوازية عبر Dart Isolates وWeb Workers، مما يتيح معالجة دفعات الملفات الضخمة والحساب التزامني للبصمات دون حجب خيط الواجهة الرسومية (Zero UI Jank).
+• تصميم نظام واجهات متجاوب (Responsive Canvas/Workspace) يتكيف تلقائياً بين شاشات اللمس للهواتف الذكية وشاشات سطح المكتب والويب العريضة ذات الأعمدة المتعددة وميزة السحب والإفلات (Drag & Drop).
+• أتمتة خطوط البناء والتوزيع لأنظمة Linux عبر Bash Scripts مخصصة لإنتاج حزم التثبيت الرسمية (.deb, .rpm, .pkg.tar.zst, .AppImage, .tar.gz).
+
+
+================================================================================
+3. الوصف التفصيلي الشامل لمعرض الأعمال (Full Portfolio Showcase - AR)
+================================================================================
+
+اسم المشروع: بدّل (Baddil)
+مجال المشروع: أمن البيانات والخصوصية | معالجة الوسائط المتعددة | تطبيقات الأنظمة متعددة المنصات
+المستهدفون: الشركات والمؤسسات، صنّاع المحتوى، مهندسو البيانات، والمستخدمون المهتمون بالخصوصية الرقمية.
+
+[المقدمة ونظرة عامة]:
+في العصر الرقمي الحالي، تحمل الملفات الرقمية (الصور، الفيديوهات، والمستندات) بصمات ثنائية فريدة 
+(Cryptographic Hashes مثل SHA-256 وMD5) وبيانات وصفية خفية (Metadata مثل الموقع الجغرافي، ونوع الكاميرا، 
+وتاريخ الالتقاط، وشهادات C2PA). تتبع هذه البصمات قد يهدد خصوصية الشركات والمستخدمين أو يعيق استخدام 
+الأصول الرقمية بحرية عبر المنصات المختلفة.
+
+تطبيق «بدّل — Baddil» تم بناؤه ليكون الحل الهندسي الأمثل والنهائي لهذه المشكلة: أداة مكتبية ونقالة وسحابية 
+فائقة السرعة تقوم بتعديل البصمة الرقمية للملف وتطهير بياناته بالكامل محلياً (On-Device) دون الحاجة لرفع 
+أي بايت واحد إلى خوادم خارجية، ودون التضحية بجودة الصورة أو الفيديو إطلاقاً!
+
+[طبقات معالجة البصمة الثلاث]:
+1. طبقة الـ Metadata العميقة:
+   إزالة وتعديل كتل البيانات الوصفية EXIF وXMP وIPTC، بالإضافة إلى نصوص PNG (tEXt, zTXt, iTXt, eXIf)، 
+   وكتل C2PA/Content Credentials الحديثة، وصناديق الحاويات للفيديو (udta, meta).
+2. طبقة الهاش دون فقد جودة (Zero-loss Hash Perturbation):
+   تعديل البصمة الرياضية SHA-256 وMD5 عبر حقن بيانات إنتروبيا فريدة وآمنة ضمن مواصفات معايير الملفات، 
+   دون لمس تدفق البكسلات أو إعادة ضغط الصورة، مع بقاء الحجم والجودة مطابقين للمصدر.
+3. طبقة إعادة الترميز الاختيارية (Optional Re-encoding):
+   إمكانية إعادة ضغط وترميز الصور وضبط مستويات جودة JPEG حسب رغبة المستخدم عند الحاجة لتقليص الحجم.
+
+[أهم المزايا التقنية والوظيفية]:
+• حساب فوري وتلقائي للبصمة الأصلية بمجرد اختيار الملف وقبل بدء المعالجة.
+• عرض مقارنة حية ومباشرة بين البصمة القديمة والبصمة الجديدة مع إمكانية النسخ بلمسة واحدة.
+• دعم معالجة دفعات الملفات الكبيرة (Batch Processing) مع شريط تقدم منفصل لكل ملف وإمكانية الإلغاء.
+• دعم السحب والإفلات (Drag & Drop) على سطح المكتب والويب، مع اختيار مجلدات كاملة على المنصات الأصلية.
+• تصدير تقارير تدقيق تفصيلية بصيغة CSV تحتوي على البصمات قبل وبعد، الأحجام، والمسارات.
+• الحفاظ التام على الملف الأصلي من خلال توليد ملفات جديدة بأسماء وقوالب مخصصة دون الكتابة فوق الملف المصدر.
+• واجهة عصرية تدعم الوضعين الداكن والفاتح، ومترجمة بالكامل للعربية والإنجليزية.
+
+
+================================================================================
+4. الإنجازات الهندسية والتحديات التقنية العميقة (Deep Technical Highlights - AR)
+================================================================================
+
+1. خوارزميات الفرز والتعديل الثنائي الخالص (Pure Dart Binary Parsers):
+   بدلاً من الاعتماد على مكتبات وسيطة ضخمة أو استدعاء أوامر نظام خارجية (FFmpeg أو ImageMagick)، 
+   تمت كتابة محللات ثنائية على مستوى البايت داخل لغة Dart مباشرة:
+   - في JPEG: فحص علامات القطاعات (Markers)، تحديد قطاعات الميتاداتا وحذفها، وإدراج قطاع تعليق مخصص 
+     `COM` (0xFFFE) يحمل شحنة تشويش فريدة تغير البصمة الرياضية فوراً.
+   - في PNG: تفكيك هيكل الـ Chunks الثنائي، عزل وحذف Chunks النصوص والميتاداتا، وحقن Chunk مساعد خاص 
+     (Ancillary Chunk مثل `bAdD`) مع إعادة حساب كود التحقق الدوري (CRC-32) بدقة برمجية متناهية 
+     تضمن فتح الملف في أي متصفح أو عارض صور عالمي دون أخطاء تلف.
+   - في WebP: التعامل مع كتل RIFF ومعالجة الأطوال الزوجية (Even Padding) وفق مواصفة Google WebP الرسمية.
+   - في MP4 / MOV: تفكيك صناديق ISOBMFF ذرّة بذرة (Atom/Box parsing)، توسيع صندوق الفراغ `free` 
+     ببيانات عشوائية، وتحديث أختام الوقت في `mvhd` و`tkhd` لتغيير البصمة دون لمس مسارات الفيديو/الصوت.
+   - في ملفات PDF وZIP والملفات العامة: إلحاق مقاطع تشويش آمنة بعد علامات النهاية (مثل `%%EOF` في PDF).
+
+2. معمارية الحوسبة غير الحاجبة (Non-blocking Asynchronous Concurrency):
+   حساب هاشات SHA-256 للملفات الكبيرة واقتطاع البايتات يتطلب جهداً حسابياً مكثفاً. تم فصل المعالجة 
+   بالكامل عن خيط الواجهة الرئيسي (UI Main Thread) عبر استخدام Dart Isolates على المنصات الأصلية، 
+   وWeb Workers / compute على المتصفح، مما يضمن معدل إطارات ثابت (60/120 FPS) دون أي تجمد.
+
+3. معمارية الواجهة المتكيفة (Adaptive Workspace Architecture):
+   تطبيق نمط تصميم مساحة العمل (Canvas/Workspace) المخصص للإنتاجية العالية:
+   - على أجهزة سطح المكتب (Linux / Windows / macOS) والويب: واجهة مقسمة إلى عمودين مع لوحة تحكم 
+     جانبية ثابتة ومنطقة سحب وإفلات مركزية تعلو قائمة المهام الحية.
+   - على الأجهزة المحمولة (Android / iOS): تحويل لوحة الخيارات المتقدمة إلى Dynamic Modal Bottom Sheet 
+     قابلة للسحب لمنح المستخدم أقصى مساحة رؤية ممكنة لقائمة الملفات.
+
+4. خط أنابيب بناء حزم لينكس المتكامل (Linux Packaging Pipeline):
+   تطوير سكربت شل متقدم (`build_linux.sh`) يقوم بالتحقق الصارم من سلامة الكود، وإعادة توليد ملفات الترجمة، 
+   وبناء إصدار الـ Release، ثم إنتاج كافة الحزم القياسية لتوزيعات لينكس في مجلد `dist/`:
+   Debian/Ubuntu (.deb)، Fedora/RHEL (.rpm)، Arch Linux (.pkg.tar.zst)، والتوزيع الموحد (.AppImage و .tar.gz).
+
+
+================================================================================
+5. مصفوفة التقنيات والمهارات البرمجية (Tech Stack & Core Competencies)
+================================================================================
+
+• التقنيات الأساسية: Flutter 3.x | Dart 3.13+ (Sound Null Safety)
+• المنصات المدعومة (Cross-Platform 6-in-1):
+  - Mobile: Android (API 21+), iOS
+  - Desktop: Linux (GTK3), Windows, macOS
+  - Web: PWA / WebAssembly-ready
+• هندسة التشفير والأمان: SHA-256, MD5, CRC-32, Zero-loss Hash Perturbation, Metadata Cleansing, C2PA Stripping
+• معالجة البايتات والملفات (Low-Level File I/O):
+  - Binary Stream Parsing & Byte Manipulation
+  - Image/Container Specifications: JPEG (JFIF), PNG Chunks, WebP RIFF, MP4/MOV (ISOBMFF atoms)
+• الحوسبة المتوازية وإدارة الحالة: Dart Isolates, compute, ChangeNotifier / Controller Architecture
+• التصميم وتجربة المستخدم: Material Design 3, Responsive Two-Column Layout, Dark & Light Mode, RTL/LTR
+• التدويل والترجمة (i18n): Flutter gen-l10n, ARB (Arabic Native & English)
+• أدوات التطوير والبناء: Git, CMake, Ninja, Clang, GTK3 Development Tools, Packaging (dpkg-deb, rpmbuild, makepkg, appimagetool)
+
+
+================================================================================
+6. النسخة الإنجليزية الكاملة (Complete English Section for CV & Portfolio)
+================================================================================
+
+--------------------------------------------------------------------------------
+6.1 Quick Bio / Portfolio Cards (EN)
+--------------------------------------------------------------------------------
+
+[Option 1 - Short & Direct (2 lines)]:
+A multi-platform Flutter utility that modifies digital file fingerprints (SHA-256/MD5 hashes and metadata) 
+100% locally on-device without quality loss or server uploads.
+
+[Option 2 - Privacy & Value Focused (3 lines)]:
+Baddil is an advanced on-device privacy tool for images and videos. It strips EXIF, XMP, and C2PA credentials 
+while generating unique cryptographic hashes via pure Dart binary parsers—preserving 100% of original visual fidelity.
+
+[Option 3 - Technical & Systems Focused]:
+A high-performance binary perturbation engine engineered with Flutter & Dart for 6 platforms. 
+Features Isolate-driven multi-threading for JPEG markers, PNG chunks, and MP4/MOV container manipulation with live 
+SHA-256 comparison and CSV audit reporting.
+
+--------------------------------------------------------------------------------
+6.2 Professional Resume Bullet Points (EN)
+--------------------------------------------------------------------------------
+
+• Engineered "Baddil", a production-ready, cross-platform file privacy application in Flutter & Dart supporting 6 operating systems (Android, iOS, Linux, Windows, macOS, Web) with a 100% offline, zero-telemetry architecture.
+• Designed and implemented pure Dart low-level binary parsers to achieve zero-loss hash perturbation (SHA-256 and MD5) for JPEG, PNG, WebP, and MP4/MOV files without content recompression or image degradation.
+• Built a custom PNG chunk injector that dynamically recalculates standard CRC-32 checksums for ancillary chunks, and an MP4/MOV ISOBMFF atom processor modifying `free` boxes and header timestamps without FFmpeg dependencies.
+• Integrated comprehensive metadata sanitation, stripping sensitive EXIF, XMP, IPTC tags, and Content Credentials (C2PA APP11/caBX markers) to protect enterprise privacy and confidential media.
+• Optimized processing throughput by offloading intensive cryptographic hashing and byte manipulation to Dart Isolates and Web Workers, maintaining a smooth 60/120 FPS UI across heavy file batches.
+• Crafted an adaptive "Canvas/Workspace" responsive interface featuring split two-column views and drag-and-drop on desktop/web, alongside dynamic modal bottom sheets on mobile.
+• Automated the Linux build and packaging pipeline using Bash scripts to generate release artifacts across major package formats (.deb, .rpm, .pkg.tar.zst, .AppImage, .tar.gz).
+
+--------------------------------------------------------------------------------
+6.3 Comprehensive Project Showcase (EN)
+--------------------------------------------------------------------------------
+
+Project Name: Baddil (بدّل)
+Domain: Data Privacy | Multimedia Engineering | Cross-Platform Systems
+Target Audience: Enterprise teams, digital content creators, privacy advocates, and data engineers.
+
+[Overview]:
+Every modern digital file carries invisible digital traces: cryptographic hashes (SHA-256, MD5) and extensive 
+metadata (geolocations, camera hardware signatures, editing timestamps, and C2PA Content Credentials). 
+These fingerprints allow tracking across platforms and can unintentionally expose confidential corporate assets.
+
+Baddil was engineered as a zero-knowledge, cross-platform desktop, mobile, and web utility that alters file fingerprints 
+and purges metadata completely on the user's physical device—requiring zero internet access, zero server dependencies, 
+and causing zero visual or audio degradation.
+
+[The Three Layers of Fingerprint Manipulation]:
+1. Deep Metadata Cleansing:
+   Eliminating or customizing EXIF, XMP, IPTC blocks, PNG text chunks (tEXt, zTXt, iTXt, eXIf), modern C2PA 
+   credentials, and video user-data boxes (udta, meta).
+2. Zero-Loss Hash Perturbation:
+   Injecting specification-compliant unique entropy chunks into file structures, altering cryptographic hashes 
+   while preserving the underlying raw pixel stream and encoding unchanged.
+3. Optional Re-encoding:
+   User-configurable image re-encoding with custom JPEG quality thresholds when file size optimization is desired.
+
+[Key Features]:
+• Instant pre-processing hash calculation upon file selection.
+• Side-by-side live comparison of old vs. new SHA-256 and MD5 hashes with one-click copy.
+• Batch processing with per-file progress indicators, cancellation controls, and folder selection.
+• Native desktop and web drag-and-drop support.
+• Comprehensive CSV report export detailing sizes, original/new hashes, and output paths.
+• Safe, non-destructive file handling: originals are never overwritten; outputs use customizable naming conventions.
+• Full internationalization (Arabic RTL & English LTR) with modern Dark/Light theme switching.
+
+--------------------------------------------------------------------------------
+6.4 Core Architecture & Deep Technical Breakdown (EN)
+--------------------------------------------------------------------------------
+
+1. Pure Dart Binary Parsing (No External Dependencies):
+   Rather than invoking heavyweight native CLI binaries like FFmpeg or ExifTool, Baddil implements clean, 
+   lightweight Dart parsers operating directly on raw byte buffers:
+   - JPEG: Scans segment markers, filters metadata segments, and appends unique `COM` (0xFFFE) comment markers.
+   - PNG: Deconstructs chunk sequences, removes textual chunks, and injects private ancillary chunks (`bAdD`) 
+     with custom CRC-32 recalculation to maintain strict RFC compliance across all third-party viewers.
+   - WebP: Traverses RIFF containers, injecting padded unique chunks while preserving byte alignment.
+   - MP4 / MOV: Traverses ISOBMFF box hierarchies, expanding `free` boxes with random entropy and updating 
+     creation/modification timestamps inside `mvhd` and `tkhd` header boxes.
+   - Generic Files (PDF/ZIP): Safely appends trailer entropy past standard termination markers (e.g., post-`%%EOF`).
+
+2. Asynchronous Multi-Threaded Isolate Model:
+   High-speed cryptographic calculation over multi-megabyte files can easily choke the UI thread. Baddil leverages 
+   Dart Isolates for multi-threaded background workers on native OS platforms and Web Workers in browser environments, 
+   ensuring zero frame drops during batch jobs.
+
+3. Adaptive Workspace UI:
+   - Desktop & Web: Wide two-column canvas featuring a persistent configuration sidebar, a central drag-and-drop dropzone, 
+     and an interactive real-time queue.
+   - Mobile: Space-efficient vertical workspace with collapsible modal bottom sheets for advanced output configurations.
+
+4. Multi-Distribution Linux Deployment:
+   Equipped with a standalone packaging pipeline (`build_linux.sh`) generating production-grade packages 
+   for Debian/Ubuntu (`.deb`), Fedora (`.rpm`), Arch Linux (`.pkg.tar.zst`), and portable universal binaries (`.AppImage`, `.tar.gz`).
+
+--------------------------------------------------------------------------------
+6.5 Full Tech Stack Matrix (EN)
+--------------------------------------------------------------------------------
+
+• Framework & Language: Flutter 3.x, Dart 3.13+ (Strict Sound Null Safety)
+• Platforms (6 OS): Android, iOS, Linux (GTK3), Windows, macOS, Web (PWA)
+• Security & Cryptography: SHA-256, MD5, CRC-32, Zero-loss Perturbation, C2PA Removal, EXIF/XMP Sanitization
+• Low-Level Binary & File Protocols: JFIF (JPEG), PNG Chunk Spec, WebP RIFF, ISOBMFF (MP4/MOV)
+• Concurrency: Dart Isolates, compute, Background Workers
+• Architectural Patterns: Clean Architecture, Controller/Service Pattern, Responsive Design Tokens
+• Localization: Flutter ARB, Full RTL/LTR Bi-directional Layouts (Arabic & English)
+• Linux Packaging: CMake, Ninja, Clang, dpkg-deb, rpmbuild, makepkg, appimagetool
+================================================================================

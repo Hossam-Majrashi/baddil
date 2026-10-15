@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#282b30"/>
+      <stop offset="100%" stop-color="#212327"/>
+    </radialGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5ff0d6"/>
+      <stop offset="100%" stop-color="#3FC8B0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle border -->
+  <rect x="12" y="12" width="1000" height="1000" rx="216" fill="none" stroke="#3FC8B0" stroke-width="4" stroke-opacity="0.25"/>
+
+  <!-- Fingerprint / Data Exchange Curves -->
+  <g filter="url(#glow)">
+    <!-- Outer Arc -->
+    <path d="M 330 460 C 330 350, 410 270, 512 270 C 614 270, 694 350, 694 460 C 694 560, 640 640, 560 690" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="38" stroke-linecap="round"/>
+    
+    <!-- Second Arc -->
+    <path d="M 390 530 C 390 430, 440 350, 512 350 C 584 350, 634 430, 634 520 C 634 590, 600 660, 530 730" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="38" stroke-linecap="round"/>
+    
+    <!-- Third Inner Arc -->
+    <path d="M 450 560 C 450 500, 480 430, 512 430 C 544 430, 574 500, 574 580 C 574 650, 530 720, 470 780" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="38" stroke-linecap="round"/>
+
+    <!-- Center Core / Swap Dot -->
+    <path d="M 512 510 C 512 530, 512 600, 512 630" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="38" stroke-linecap="round"/>
+          
+    <!-- Dynamic Swap Arrows accents -->
+    <circle cx="340" cy="580" r="22" fill="#5ff0d6" />
+    <circle cx="680" cy="400" r="22" fill="#3FC8B0" />
+  </g>
+</svg>

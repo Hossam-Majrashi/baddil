@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5ff0d6"/>
+      <stop offset="100%" stop-color="#3FC8B0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Scaled in safe-zone (66% ~ center) -->
+  <g transform="translate(170, 170) scale(0.668)">
+    <!-- Outer Arc -->
+    <path d="M 330 460 C 330 350, 410 270, 512 270 C 614 270, 694 350, 694 460 C 694 560, 640 640, 560 690" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="44" stroke-linecap="round"/>
+    
+    <!-- Second Arc -->
+    <path d="M 390 530 C 390 430, 440 350, 512 350 C 584 350, 634 430, 634 520 C 634 590, 600 660, 530 730" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="44" stroke-linecap="round"/>
+    
+    <!-- Third Inner Arc -->
+    <path d="M 450 560 C 450 500, 480 430, 512 430 C 544 430, 574 500, 574 580 C 574 650, 530 720, 470 780" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="44" stroke-linecap="round"/>
+
+    <!-- Center Core / Swap Dot -->
+    <path d="M 512 510 C 512 530, 512 600, 512 630" 
+          fill="none" stroke="url(#tealGrad)" stroke-width="44" stroke-linecap="round"/>
+          
+    <circle cx="340" cy="580" r="26" fill="#5ff0d6" />
+    <circle cx="680" cy="400" r="26" fill="#3FC8B0" />
+  </g>
+</svg>
